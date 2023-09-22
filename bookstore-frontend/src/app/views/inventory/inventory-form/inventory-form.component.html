@@ -1,0 +1,54 @@
+<app-breadcrumb [title]="title" [items]="items"></app-breadcrumb>
+<h3 class="text-center">{{title}}</h3>
+<hr>
+<form [formGroup]="form" (ngSubmit)="save()">
+    <fieldset>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="mb-3">
+                    <label class="form-label">Book<span class="text-danger"><strong>*</strong></span></label>
+                    <select class="form-select" formControlName="book" name="book" [compareWith]="compareWithBook">
+                        <option [value]="null">Select book</option>
+                        <option *ngFor="let book of books" [ngValue]="book">
+                            {{book.name}}
+                        </option>
+                    </select>
+                    <div class="invalid-feedback">
+                        The record cannot be empty.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quantity<span class="text-danger"><strong>*</strong></span></label>
+                    <input type="number" class="form-control" formControlName="quantity" placeholder="0"
+                        [class.is-invalid]="form.get('quantity')?.touched && form.get('quantity')?.invalid">
+                    <div class="invalid-feedback">
+                        The record cannot be empty.
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="mb-3">
+                    <label class="form-label">Price<span class="text-danger"><strong>*</strong></span></label>
+                    <input type="number" class="form-control" formControlName="price" placeholder="0"
+                        [class.is-invalid]="form.get('price')?.touched && form.get('price')?.invalid">
+                    <div class="invalid-feedback">
+                        The record cannot be empty.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <span><span class="text-danger">*</span>Campos obligatorios</span>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group me-2" role="group">
+            <button type="submit" class="btn btn-success" [disabled]="!form.valid">
+                <span class="bi bi-hdd-fill"></span>
+            </button>
+        </div>
+        <div class="btn-group me-2" role="group">
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+                <span class="bi bi-x-lg"></span>
+            </button>
+        </div>
+    </div>
+</form>

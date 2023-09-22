@@ -1,0 +1,28 @@
+<app-breadcrumb [title]="title" [items]="items"></app-breadcrumb>
+<h3 class="text-center">{{title}}</h3>
+<hr>
+<div class="d-flex justify-content-end align-items-center mb-3">
+    <button type="button" class="btn btn-primary" (click)="new()">
+        <span class="bi bi-plus"></span>
+    </button>
+</div>
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let genre of genres; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{genre.name}}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-warning text-white" (click)="edit(genre.genreId)">
+                    <span class="bi bi-pencil-fill"></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
