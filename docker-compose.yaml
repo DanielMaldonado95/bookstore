@@ -1,0 +1,26 @@
+version: "3"
+services:
+  bookstore-frontend:
+    container_name: bookstore-frontend
+    restart: on-failure:5
+    build:
+      context: ./bookstore-frontend
+      dockerfile: dockerfile
+    ports:
+      - 4200:80
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+  bookstore-backend:
+    container_name: bookstore-api-rest
+    restart: on-failure:5
+    build:
+      context: ./bookstore-api-rest
+      dockerfile: dockerfile
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          memory: 1G

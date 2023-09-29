@@ -1,0 +1,16 @@
+FROM maven:3.8.5-openjdk-17 AS build
+COPY src /home/bookstore-api-rest/src
+COPY pom.xml /home/bookstore-api-rest
+RUN mvn -DskipTests=true -f /home/bookstore-api-rest/pom.xml clean package
+
+FROM openjdk:17-jdk
+COPY --from=build /home/bookstore-api-rest/target/bookstore-api-rest-0.0.1-SNAPSHOT.war /home/bookstore-api-rest/bookstore-api-rest.war
+EXPOSE 8080
+
+USER root
+ADD wait /wait
+RUN chmod +x /wait
+RUN mkdir /home/bookstore-api-rest/docs
+
+WORKDIR /home/bookstore-api-rest
+CMD /wait && java -jar bookstore-api-rest.war
